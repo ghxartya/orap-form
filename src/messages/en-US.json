@@ -1,0 +1,29 @@
+{
+  "Metadata": {
+    "title": "Orap form",
+    "description": "Delivery Address: Edit current address"
+  },
+  "ProfilePage": {
+    "modals": {
+      "DeliveryAddressModal": {
+        "heading": "Edit current address",
+        "city": {
+          "label": "City*"
+        },
+        "zip": {
+          "label": "ZIP Code"
+        },
+        "street": {
+          "label": "Street*"
+        },
+        "house": {
+          "label": "House*"
+        },
+        "flat": {
+          "label": "Apartment / Office"
+        },
+        "action": "Save changes"
+      }
+    }
+  }
+}

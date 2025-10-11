@@ -24,6 +24,7 @@ Contains various static files used throughout the application, such as images, i
 The **package.json** file lists the project dependencies that include the core libraries and tools needed to develop, build, and run the application. Below is a brief overview of selected packages used in this project:
 
 - **_clsx_**: A library for conditionally building className strings.
+- **_next-intl_**: A library for managing localization in Next.js applications. It provides tools for loading, formatting, and rendering localized messages based on the user’s locale.
 
 ### Development Dependencies
 
