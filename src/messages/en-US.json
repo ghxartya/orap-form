@@ -7,20 +7,40 @@
     "modals": {
       "DeliveryAddressModal": {
         "heading": "Edit current address",
-        "city": {
-          "label": "City*"
-        },
-        "zip": {
-          "label": "ZIP Code"
-        },
-        "street": {
-          "label": "Street*"
-        },
-        "house": {
-          "label": "House*"
-        },
-        "flat": {
-          "label": "Apartment / Office"
+        "inputs": {
+          "city": {
+            "label": "City*",
+            "error": {
+              "required": "City is required",
+              "length": "City length must be between 2 and 30 characters"
+            }
+          },
+          "zip": {
+            "label": "ZIP Code",
+            "error": {
+              "overlong": "Code length must not exceed 10 characters"
+            }
+          },
+          "street": {
+            "label": "Street*",
+            "error": {
+              "required": "Street is required",
+              "length": "Street length must be between 2 and 30 characters"
+            }
+          },
+          "house": {
+            "label": "House*",
+            "error": {
+              "required": "House is required",
+              "overlong": "House length must not exceed 15 characters"
+            }
+          },
+          "flat": {
+            "label": "Apartment / Office",
+            "error": {
+              "overlong": "Place length must not exceed 15 characters"
+            }
+          }
         },
         "action": "Save changes"
       }

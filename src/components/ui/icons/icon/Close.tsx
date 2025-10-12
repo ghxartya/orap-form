@@ -1,12 +1,13 @@
 import clsx from 'clsx'
 
-import type { IconProps } from './icon.interface'
+import type { IconProps } from '../icon.interface'
 
 export default function Close({ size = 24, className }: IconProps) {
   return (
     <svg
       width={size}
       height={size}
+      fill='none'
       viewBox='0 0 24 24'
       xmlns='http://www.w3.org/2000/svg'
       focusable='false'

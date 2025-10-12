@@ -1,5 +1,5 @@
 type IsModalOpen = {
-  [key in keyof IntlMessages['ProfilePage']['modals']]?: boolean
+  [Key in keyof IntlMessages['ProfilePage']['modals']]?: boolean
 }
 
 export interface Store {

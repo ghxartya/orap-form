@@ -49,7 +49,7 @@ export default function Modal({ id, heading, children }: ModalProps) {
       >
         <div
           className={clsx(
-            'rounded-modal relative flex max-h-3/4 w-full max-w-[637px] scale-90 cursor-default flex-col items-start justify-center gap-6 overflow-x-hidden overflow-y-auto bg-white px-6 py-8 transition-transform duration-300 will-change-transform',
+            'flex max-h-3/4 w-full max-w-[637px] scale-90 cursor-default flex-col items-start gap-6 overflow-x-hidden overflow-y-auto rounded-sm bg-white px-6 py-8 transition-transform duration-300 will-change-transform',
             { '!scale-100': isOpen }
           )}
           onClick={event => event.stopPropagation()}
