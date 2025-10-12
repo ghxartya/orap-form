@@ -1,9 +1,8 @@
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
+import { useDebounceCallback } from 'usehooks-ts'
 
 import { useStore } from '@/store'
-
-import { debounce } from '@/utils/debounce'
 
 import Heading from '@/ui/heading/Heading'
 import { Icons } from '@/ui/icons'
@@ -16,8 +15,8 @@ export default function Modal({ id, heading, children }: ModalProps) {
   const [isReadyToClose, setIsReadyToClose] = useState(false)
 
   const isOpen = isModalOpen[id]
-  const readyToClose = debounce(() => setIsReadyToClose(true), 300)
   const closeModal = () => isReadyToClose && setIsModalOpen({ [id]: false })
+  const readyToClose = useDebounceCallback(() => setIsReadyToClose(true), 300)
 
   useEffect(() => {
     if (isOpen && !isReadyToClose) readyToClose()
@@ -48,6 +47,7 @@ export default function Modal({ id, heading, children }: ModalProps) {
         )}
       >
         <div
+          id='modal-content'
           className={clsx(
             'flex max-h-3/4 w-full max-w-[637px] scale-90 cursor-default flex-col items-start gap-6 overflow-x-hidden overflow-y-auto rounded-sm bg-white px-6 py-8 transition-transform duration-300 will-change-transform',
             { '!scale-100': isOpen }

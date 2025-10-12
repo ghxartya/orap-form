@@ -17,7 +17,7 @@ export default function Input({
   return (
     <div
       className={clsx(
-        'border-gray bg-brand-background flex h-16 cursor-text flex-col items-start justify-center gap-2 self-stretch rounded-sm border border-solid px-3 py-6',
+        'border-gray bg-brand-background flex h-16 cursor-text flex-col items-start justify-center gap-2 self-stretch rounded-sm border px-3 py-6',
         { 'border-red-500/50': error },
         className
       )}

@@ -19,6 +19,8 @@ import Form from '@/ui/form/Form'
 import type { FormData } from '@/ui/form/form.interface'
 import Input from '@/ui/input/Input'
 import Modal from '@/ui/modal/Modal'
+import Select from '@/ui/select/Select'
+import type { Options } from '@/ui/select/select.interface'
 
 export default function Profile() {
   const messages = useIntlMessages()
@@ -53,6 +55,12 @@ export default function Profile() {
     allowSpecial?: boolean
   ) => field.onChange(normalizeNumeric(event.target.value, allowSpecial))
 
+  const options: Options = [
+    { id: 1, value: 'Germany' },
+    { id: 2, value: 'Ukraine' },
+    { id: 3, value: 'Russia' }
+  ]
+
   return (
     <Modal
       id='DeliveryAddressModal'
@@ -62,6 +70,7 @@ export default function Profile() {
         className='flex flex-col items-start gap-4 self-stretch'
         handleSubmit={handleSubmit}
       >
+        <Select options={options} />
         <Controller
           name='city'
           control={control}

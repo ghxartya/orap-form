@@ -16,12 +16,15 @@
   --tracking-heading: -0.24px;
 
   --transition-property-opacity-visibility: opacity, visibility;
+  --transition-property-max-height-visibility: max-height, visibility;
 }
 
 body {
   overflow-x: hidden;
 
-  &::-webkit-scrollbar {
+  &::-webkit-scrollbar,
+  #modal-content::-webkit-scrollbar,
+  #dropdown-list::-webkit-scrollbar {
     display: none;
   }
 }
