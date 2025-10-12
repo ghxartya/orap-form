@@ -4,7 +4,6 @@ import { type ChangeEvent, type FocusEvent, useEffect } from 'react'
 import {
   Controller,
   type ControllerRenderProps,
-  type SubmitHandler,
   useForm
 } from 'react-hook-form'
 
@@ -12,12 +11,12 @@ import { useStore } from '@/store'
 
 import { useIntlMessages } from '@/hooks/useIntlMessages'
 
-import type { FormData } from '@/types/form.interface'
-
 import { normalizeNumeric } from '@/utils/normalizeNumeric'
 import { normalizeWhitespace } from '@/utils/normalizeWhitespace'
 
 import Button from '@/ui/button/Button'
+import Form from '@/ui/form/Form'
+import type { FormData } from '@/ui/form/form.interface'
 import Input from '@/ui/input/Input'
 import Modal from '@/ui/modal/Modal'
 
@@ -43,9 +42,6 @@ export default function Profile() {
     }
   })
 
-  const onSubmit: SubmitHandler<FormData> = data =>
-    alert(JSON.stringify(data, null, 2))
-
   const handleNormalizeWhitespace = (
     event: FocusEvent<HTMLInputElement>,
     field: ControllerRenderProps<FormData>
@@ -62,9 +58,9 @@ export default function Profile() {
       id='DeliveryAddressModal'
       heading='ProfilePage.modals.DeliveryAddressModal.heading'
     >
-      <form
+      <Form
         className='flex flex-col items-start gap-4 self-stretch'
-        onSubmit={handleSubmit(onSubmit)}
+        handleSubmit={handleSubmit}
       >
         <Controller
           name='city'
@@ -156,7 +152,7 @@ export default function Profile() {
           className='mt-2 self-stretch'
           tKey='ProfilePage.modals.DeliveryAddressModal.action'
         />
-      </form>
+      </Form>
     </Modal>
   )
 }
