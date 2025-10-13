@@ -1,9 +1,37 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-nekst: var(--font-nekst);
+  --font-arial: Arial, sans-serif;
+
+  --color-gray: #dde1e6;
+  --color-brand-blue: #2b2d42;
+  --color-paragraph-blue: #596d8c;
+  --color-brand-background: #f9fbfd;
+  --color-gray-background: #f2f4f8;
+
+  --leading-label: 14px;
+  --leading-medium: 19.2px;
+  --leading-heading: 26.4px;
+  --tracking-heading: -0.24px;
+
+  --transition-property-opacity-visibility: opacity, visibility;
+  --transition-property-max-height-visibility: max-height, visibility;
+}
+
 body {
   overflow-x: hidden;
 
-  &::-webkit-scrollbar {
+  &::-webkit-scrollbar,
+  #modal-content::-webkit-scrollbar,
+  #dropdown-list::-webkit-scrollbar {
     display: none;
   }
+}
+
+.custom-container {
+  width: 1440px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 64px;
 }
