@@ -70,6 +70,8 @@ export default function Profile() {
     queryFn: () => CountryService.getCountries()
   })
 
+  const isSelectDisabled = isLoading || isError
+  const isButtonDisabled = !!Object.entries(errors).length
   useEffect(() => setSelectCountries(countries), [countries])
 
   return (
@@ -99,7 +101,7 @@ export default function Profile() {
                       }
                     ]
               }
-              disabled={isLoading || isError}
+              disabled={isSelectDisabled}
               onChange={selectedOption => field.onChange(selectedOption)}
             />
           )}
@@ -192,6 +194,8 @@ export default function Profile() {
         <Button
           type='submit'
           className='mt-2 self-stretch'
+          disabled={isButtonDisabled || isSelectDisabled}
+          isActive={!isButtonDisabled && !isSelectDisabled}
           tKey='ProfilePage.modals.DeliveryAddressModal.action'
         />
       </Form>
