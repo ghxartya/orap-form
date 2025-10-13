@@ -2,21 +2,51 @@ import clsx from 'clsx'
 import type { Metadata, Viewport } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
+import { headers } from 'next/headers'
+
+import ReactQueryProvider from '@/providers/ReactQueryProvider'
 
 import { nekst } from '@/assets/fonts'
 import '@/assets/styles/globals.css'
 
+import { METADATA } from '@/config/metadata.config'
+
 import Background from '@/layout/background/Background'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('Metadata')
+  const headersList = await headers()
 
+  const host = headersList.get('host')
+  const protocol = host?.startsWith('localhost') ? 'http://' : 'https://'
+  const baseUrl = protocol + host
+
+  const applicationName = METADATA.APPLICATION_NAME
+  const applicationBaseUrl = new URL(baseUrl)
+  const siteName = METADATA.SITE_NAME
+
+  const metadataBase = METADATA.BASE
+  const metadataBaseUrl = baseUrl + metadataBase
+
+  const t = await getTranslations('Metadata')
   const title = t('title')
   const description = t('description')
 
   return {
     title,
-    description
+    description,
+    applicationName,
+    abstract: description,
+    metadataBase: new URL(metadataBaseUrl),
+    openGraph: {
+      title,
+      description,
+      siteName,
+      images: ['/background.jpg']
+    },
+    icons: {
+      icon: applicationBaseUrl + '/icon.png',
+      apple: applicationBaseUrl + '/apple-icon.png'
+    }
   }
 }
 
@@ -36,7 +66,9 @@ export default async function RootLayout({
     <html lang='en'>
       <body className={clsx(nekst.variable, 'antialiased')}>
         <Background />
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

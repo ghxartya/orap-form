@@ -1,17 +1,21 @@
-import { HTMLAttributes, RefObject } from 'react'
+import type { HTMLAttributes, RefObject } from 'react'
 
-export type Options = {
-  id: number | string
-  value: number | string
+type Options = {
+  id: string
+  value: string
 }[]
 
-export type CountryOptions = {
-  flag: string
-  country: string
-  code: string
-}[]
+export type CountryOptions = Options &
+  {
+    flags: {
+      svg: string
+      alt: string
+    }
+  }[]
 
-export interface SelectProps extends HTMLAttributes<HTMLDivElement> {
+export interface SelectProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+  onChange: (value: string) => void
   options: Options | CountryOptions
   disabled?: boolean
 }

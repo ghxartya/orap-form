@@ -1,6 +1,6 @@
 # Orap form
 
-### This project is a test assignment as well as a front-end application built on Next.js + TailwindCSS.
+### This project is a test assignment as well as a front-end application built on Next.js + Tailwind CSS.
 
 ## Project Structure Overview
 

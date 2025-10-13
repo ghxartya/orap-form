@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDebounceCallback, useOnClickOutside } from 'usehooks-ts'
 
 import { Icons } from '@/ui/icons'
@@ -12,17 +12,16 @@ import Span from './span/Span'
 export default function Select({
   options,
   disabled,
+  onChange,
   className,
   ...rest
 }: SelectProps) {
-  const [selected, setSelected] = useState<Option>(options?.[0])
+  const [selected, setSelected] = useState<Option>()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
-  const isCountrySelect = 'flag' in selected
   const dropdownRef = useRef<HTMLDivElement>(null)
-
   const dropdownClose = useDebounceCallback(() => {
     setIsDropdownOpen(false)
     setIsDisabled(false)
@@ -38,6 +37,19 @@ export default function Select({
   }
 
   useOnClickOutside(dropdownRef as DropdownRef, () => handleOpen(false, false))
+
+  useEffect(() => {
+    if (options && Array.isArray(options) && options.length > 0)
+      setSelected(options[0])
+    else setSelected(undefined)
+  }, [options])
+
+  useEffect(() => {
+    if (selected && isCountrySelect) onChange(selected.value)
+  }, [selected])
+
+  if (!selected) return null
+  const isCountrySelect = 'flags' in selected
 
   return (
     <div

@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import Image from 'next/image'
 
-import type { CountryOptions, Options } from '@/ui/select/select.interface'
+import type { CountryOptions } from '@/ui/select/select.interface'
 
 import type { SpanProps } from './span.interface'
 
@@ -14,14 +14,15 @@ export default function Span({
   return (
     <div className='flex items-center gap-2'>
       {isCountrySelect && (
-        <Image
-          className='select-none'
-          src={(option as CountryOptions[number]).flag}
-          alt='Country Flag'
-          width={20}
-          height={15}
-          draggable={false}
-        />
+        <div className='relative aspect-[20/15] h-[15px] w-5'>
+          <Image
+            className='object-cover select-none'
+            src={(option as CountryOptions[number]).flags.svg}
+            alt={(option as CountryOptions[number]).flags.alt}
+            fill
+            draggable={false}
+          />
+        </div>
       )}
       <span
         {...rest}
@@ -30,9 +31,7 @@ export default function Span({
           className
         )}
       >
-        {isCountrySelect
-          ? (option as CountryOptions[number]).country
-          : (option as Options[number]).value}
+        {option.value}
       </span>
     </div>
   )

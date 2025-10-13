@@ -1,6 +1,7 @@
 'use client'
 
-import { type ChangeEvent, type FocusEvent, useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { type ChangeEvent, type FocusEvent, useEffect, useState } from 'react'
 import {
   Controller,
   type ControllerRenderProps,
@@ -20,7 +21,9 @@ import type { FormData } from '@/ui/form/form.interface'
 import Input from '@/ui/input/Input'
 import Modal from '@/ui/modal/Modal'
 import Select from '@/ui/select/Select'
-import type { Options } from '@/ui/select/select.interface'
+import type { CountryOptions } from '@/ui/select/select.interface'
+
+import { CountryService } from '@/services/country.service'
 
 export default function Profile() {
   const messages = useIntlMessages()
@@ -36,6 +39,7 @@ export default function Profile() {
   } = useForm<FormData>({
     mode: 'onChange',
     defaultValues: {
+      country: undefined,
       city: 'Montgomery',
       zip: '14193',
       street: 'Margaretenstraße',
@@ -55,11 +59,18 @@ export default function Profile() {
     allowSpecial?: boolean
   ) => field.onChange(normalizeNumeric(event.target.value, allowSpecial))
 
-  const options: Options = [
-    { id: 1, value: 'Germany' },
-    { id: 2, value: 'Ukraine' },
-    { id: 3, value: 'Russia' }
-  ]
+  const [selectCountries, setSelectCountries] = useState<CountryOptions>()
+
+  const {
+    data: countries,
+    isLoading,
+    isError
+  } = useQuery({
+    queryKey: ['get select countries'],
+    queryFn: () => CountryService.getCountries()
+  })
+
+  useEffect(() => setSelectCountries(countries), [countries])
 
   return (
     <Modal
@@ -70,7 +81,29 @@ export default function Profile() {
         className='flex flex-col items-start gap-4 self-stretch'
         handleSubmit={handleSubmit}
       >
-        <Select options={options} />
+        <Controller
+          name='country'
+          control={control}
+          rules={{
+            required: inputs.country.error.required
+          }}
+          render={({ field }) => (
+            <Select
+              options={
+                selectCountries
+                  ? selectCountries
+                  : [
+                      {
+                        id: '1',
+                        value: errors.country?.message ?? inputs.country.label
+                      }
+                    ]
+              }
+              disabled={isLoading || isError}
+              onChange={selectedOption => field.onChange(selectedOption)}
+            />
+          )}
+        />
         <Controller
           name='city'
           control={control}

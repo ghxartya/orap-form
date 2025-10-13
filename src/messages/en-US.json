@@ -1,13 +1,19 @@
 {
   "Metadata": {
-    "title": "Orap form",
-    "description": "Delivery Address: Edit current address"
+    "title": "Delivery Address: Edit current address",
+    "description": "This project is a test assignment as well as a front-end application built on Next.js + Tailwind CSS."
   },
   "ProfilePage": {
     "modals": {
       "DeliveryAddressModal": {
         "heading": "Edit current address",
         "inputs": {
+          "country": {
+            "label": "Loading...",
+            "error": {
+              "required": "Country is required"
+            }
+          },
           "city": {
             "label": "City*",
             "error": {
