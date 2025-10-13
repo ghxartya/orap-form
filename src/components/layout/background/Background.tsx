@@ -13,13 +13,14 @@ export default function Background() {
       onClick={() => setIsModalOpen({ DeliveryAddressModal: true })}
     >
       <Image
-        className='!h-auto select-none'
+        className='!h-auto select-none max-lg:hidden'
         src='/background.jpg'
         alt='Background'
         fill
         priority
         quality={100}
         draggable={false}
+        sizes='(max-width: 1024px) 0vw, 100vw'
       />
     </div>
   )

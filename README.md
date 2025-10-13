@@ -10,6 +10,9 @@ Contains various static files used throughout the application, such as images, i
 
 ### /src Directory
 
+- **/api**: Contains basic logic for interacting with API requests.
+  - **_api.config.ts_**: Central configuration for API requests, including base URLs and headers.
+  - **_api.helper.ts_**: Utility functions to assist with API operations.
 - **/app**: Next.js directory for routing and page components.
   - **_layout.tsx_**: Defines the global layout structure for the application.
 - **/assets**: Contains resources like fonts and global styles.
@@ -18,6 +21,24 @@ Contains various static files used throughout the application, such as images, i
 - **/components**: Reusable UI components, split into subdirectories for organizational purposes.
   - **_/layout_**: Components related to the overall structure.
   - **_/ui_**: Basic UI elements like buttons, inputs, modals, etc.
+- **/config**: Configuration files for different aspects of the application.
+  - **_metadata.config.ts_**: Metadata object with fields for SEO optimization.
+- **/hooks**: Custom React hooks that encapsulate reusable logic.
+  - **_useIntlMessages.ts_**: Fetches and manages localized messages.
+- **/localization**: Folder for files related to localization logic.
+  - **_request.ts_**: Requests JSON file with localized texts.
+- **/messages**: Contains localized strings.
+  - **_en-US.json_**: JSON file with English (United States) localized messages.
+- **/providers**: Contains components that provide context or state to the application.
+  - **_ReactQueryProvider.tsx_**: Sets up React Query for managing server state.
+- **/services**: Serves to encapsulate and organize code related to interaction with external sources.
+  - **_country.service.ts_**: Service for receiving countries.
+- **/store**: Provides state management logic.
+  - **_index.ts_**: Centralized Zustand store configuration.
+- **/types**: TypeScript interfaces and types for strict type-checking across the application.
+  - **_store.interface.ts_**: Types and interfaces for state management.
+- **/utils**: Utility functions for various operations.
+  - **_normalizeWhitespace.ts_**: Function that normalizes the supplied string by removing multiple spaces.
 
 ### Root Level
 
@@ -39,3 +60,11 @@ The **package.json** file lists the project dependencies that include the core l
 ## Project Exploitation Instructions
 
 The project uses **Yarn** as the package manager. Use standard Next.js commands for development, production, and building the application.
+
+### Environment Configuration
+
+Environment variables stored in a **.env** file. Folowing variables are required for the application to work properly:
+
+- **_API_URL_**: Specifies the base URL of the API used by the application. This is essential for sending API requests within the application.
+
+Ensure that these variables are correctly set in the .env file for the application to function as expected.

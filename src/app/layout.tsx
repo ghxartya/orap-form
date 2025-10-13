@@ -27,6 +27,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const metadataBase = METADATA.BASE
   const metadataBaseUrl = baseUrl + metadataBase
 
+  const author = METADATA.AUTHOR
+  const repository = METADATA.REPO
+
   const t = await getTranslations('Metadata')
   const title = t('title')
   const description = t('description')
@@ -43,6 +46,12 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName,
       images: ['/background.jpg']
     },
+    authors: [
+      {
+        name: author,
+        url: repository
+      }
+    ],
     icons: {
       icon: applicationBaseUrl + '/icon.png',
       apple: applicationBaseUrl + '/apple-icon.png'

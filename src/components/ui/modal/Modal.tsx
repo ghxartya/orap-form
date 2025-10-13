@@ -42,7 +42,7 @@ export default function Modal({ id, heading, children }: ModalProps) {
       )}
       <div
         className={clsx(
-          'custom-container',
+          'custom-container px-16 max-[400px]:!px-3 max-sm:px-6',
           'flex h-full items-center justify-center'
         )}
       >
