@@ -19,6 +19,7 @@ export const CountryService = {
           value: country.name.common,
           id: country.name.official
         }))
+        .sort((a, b) => a.value.localeCompare(b.value))
 
       return formattedCountries
     } catch (error) {

@@ -17,6 +17,7 @@ export default function Select({
   ...rest
 }: SelectProps) {
   const [selected, setSelected] = useState<Option>()
+  const [wasItDefaulted, setWasIsDefaulted] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
@@ -45,7 +46,17 @@ export default function Select({
   }, [options])
 
   useEffect(() => {
-    if (selected && isCountrySelect) onChange(selected.value)
+    if (selected) {
+      if (!wasItDefaulted) {
+        const isGermany = (value: string) => value === 'Germany'
+        const defaultCountry = options.find(country => isGermany(country.value))
+
+        if (defaultCountry) {
+          setWasIsDefaulted(true)
+          setSelected(defaultCountry)
+        }
+      } else onChange(selected.value)
+    }
   }, [selected])
 
   if (!selected) return null
