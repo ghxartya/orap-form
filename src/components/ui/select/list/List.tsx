@@ -14,11 +14,12 @@ interface InfiniteListProps extends ListProps {
 const List = ({
   isOpen,
   selected,
-  setSelected,
-  options,
-  isCountrySelect,
   handleOpen,
+  setSelected,
+  searchError,
+  options,
   className,
+  isCountrySelect,
   itemsPerPage = 5,
   ...rest
 }: InfiniteListProps) => {
@@ -69,23 +70,35 @@ const List = ({
         className
       )}
     >
-      {loadedOptions.map(option => {
-        const optionKey = option.id
-        const isOptionSelected = optionKey === selected.id
+      {loadedOptions.length > 0 ? (
+        loadedOptions.map(option => {
+          const optionKey = option.id
+          const isOptionSelected = optionKey === selected.id
 
-        return (
-          <li
-            key={optionKey}
-            onClick={() => handleSelect(option)}
-            className={clsx(
-              'bg-brand-background hover:bg-gray-background cursor-pointer px-3 py-5 transition-colors duration-300',
-              { '!bg-gray': isOptionSelected }
-            )}
-          >
-            <Span option={option} isCountrySelect={isCountrySelect} />
-          </li>
-        )
-      })}
+          return (
+            <li
+              key={optionKey}
+              onClick={() => handleSelect(option)}
+              className={clsx(
+                'bg-brand-background hover:bg-gray-background cursor-pointer px-3 py-5 transition-colors duration-300',
+                { '!bg-gray': isOptionSelected }
+              )}
+            >
+              <Span option={option} isCountrySelect={isCountrySelect} />
+            </li>
+          )
+        })
+      ) : (
+        <li className='bg-brand-background px-3 py-5'>
+          <Span
+            option={{
+              id: '1',
+              value: searchError
+            }}
+            isCountrySelect={false}
+          />
+        </li>
+      )}
       {hasMore && (
         <div
           ref={sentinelRef}

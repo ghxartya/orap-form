@@ -12,6 +12,10 @@
             "label": "Loading...",
             "error": {
               "required": "Country is required"
+            },
+            "search": {
+              "placeholder": "Search...",
+              "error": "No options found"
             }
           },
           "city": {

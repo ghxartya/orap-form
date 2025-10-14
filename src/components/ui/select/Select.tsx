@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
 import { useDebounceCallback, useOnClickOutside } from 'usehooks-ts'
 
+import { useIntlMessages } from '@/hooks/useIntlMessages'
+
 import { Icons } from '@/ui/icons'
 import Toggle from '@/ui/toggle/Toggle'
 
@@ -16,6 +18,9 @@ export default function Select({
   className,
   ...rest
 }: SelectProps) {
+  const messages = useIntlMessages()
+  const { country } = messages.ProfilePage.modals.DeliveryAddressModal.inputs
+
   const [selected, setSelected] = useState<Option>()
   const [wasItDefaulted, setWasIsDefaulted] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -59,6 +64,22 @@ export default function Select({
     }
   }, [selected])
 
+  const [searchQuery, setSearchQuery] = useState('')
+  const [filteredOptions, setFilteredOptions] = useState(options)
+
+  const search = () =>
+    setFilteredOptions(
+      options.filter(option => {
+        const optionName = option.value.toLowerCase()
+        return optionName.includes(searchQuery.toLowerCase())
+      })
+    )
+  const debouncedSearch = useDebounceCallback(() => search(), 300)
+
+  useEffect(() => {
+    if (searchQuery) debouncedSearch()
+  }, [searchQuery])
+
   if (!selected) return null
   const isCountrySelect = 'flags' in selected
 
@@ -88,13 +109,23 @@ export default function Select({
           />
         </div>
       </Toggle>
+      {isDropdownOpen && (
+        <input
+          type='text'
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          placeholder={country.search.placeholder}
+          className='text-brand-blue font-arial leading-medium selection:text-brand-blue/75 border-gray bg-brand-background placeholder:text-brand-blue/75 w-full border border-t-0 p-3 text-base font-normal shadow focus-visible:outline-none'
+        />
+      )}
       <List
         isOpen={isOpen}
         selected={selected}
-        setSelected={setSelected}
-        options={options}
-        isCountrySelect={isCountrySelect}
         handleOpen={handleOpen}
+        setSelected={setSelected}
+        options={filteredOptions}
+        isCountrySelect={isCountrySelect}
+        searchError={country.search.error}
       />
     </div>
   )

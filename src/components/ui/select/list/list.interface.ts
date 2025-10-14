@@ -9,4 +9,5 @@ export interface ListProps extends HTMLAttributes<HTMLUListElement> {
   options: SelectProps['options']
   isCountrySelect: boolean
   handleOpen: (isOpen: boolean, isDropdownOpen: boolean) => void
+  searchError: string
 }
