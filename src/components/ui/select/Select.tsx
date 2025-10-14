@@ -80,7 +80,9 @@ export default function Select({
     )
   const debouncedSearch = useDebounceCallback(() => search(), 300)
 
-  useEffect(() => debouncedSearch(), [searchQuery])
+  useEffect(() => {
+    if (filteredOptions) debouncedSearch()
+  }, [searchQuery])
 
   if (!selected) return null
   const isCountrySelect = 'flags' in selected
