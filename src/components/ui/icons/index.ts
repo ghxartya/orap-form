@@ -10,4 +10,6 @@ export const Icons = {
   Select: {
     Arrow
   }
-}
+} as const
+
+export { Arrow, Close, Spinner }

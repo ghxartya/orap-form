@@ -23,10 +23,13 @@ import Modal from '@/ui/modal/Modal'
 import Select from '@/ui/select/Select'
 import type { CountryOptions } from '@/ui/select/select.interface'
 
+import { VALIDATION_CONSTANTS } from '@/constants/validation.constants'
 import { CountryService } from '@/services/country.service'
 
 export default function Profile() {
   const messages = useIntlMessages()
+
+  const { DELIVERY_ADDRESS: VALIDATION } = VALIDATION_CONSTANTS
   const { inputs } = messages.ProfilePage.modals.DeliveryAddressModal
 
   const { setIsModalOpen } = useStore()
@@ -111,8 +114,14 @@ export default function Profile() {
           control={control}
           rules={{
             required: inputs.city.error.required,
-            minLength: { value: 2, message: inputs.city.error.length },
-            maxLength: { value: 30, message: inputs.city.error.length }
+            minLength: {
+              value: VALIDATION.CITY.MIN_LENGTH,
+              message: inputs.city.error.length
+            },
+            maxLength: {
+              value: VALIDATION.CITY.MAX_LENGTH,
+              message: inputs.city.error.length
+            }
           }}
           render={({ field }) => (
             <Input
@@ -128,7 +137,10 @@ export default function Profile() {
           name='zip'
           control={control}
           rules={{
-            maxLength: { value: 10, message: inputs.zip.error.overlong }
+            maxLength: {
+              value: VALIDATION.ZIP.MAX_LENGTH,
+              message: inputs.zip.error.overlong
+            }
           }}
           render={({ field }) => (
             <Input
@@ -145,8 +157,14 @@ export default function Profile() {
           control={control}
           rules={{
             required: inputs.street.error.required,
-            minLength: { value: 2, message: inputs.street.error.length },
-            maxLength: { value: 30, message: inputs.street.error.length }
+            minLength: {
+              value: VALIDATION.STREET.MIN_LENGTH,
+              message: inputs.street.error.length
+            },
+            maxLength: {
+              value: VALIDATION.STREET.MAX_LENGTH,
+              message: inputs.street.error.length
+            }
           }}
           render={({ field }) => (
             <Input
@@ -163,7 +181,10 @@ export default function Profile() {
           control={control}
           rules={{
             required: inputs.house.error.required,
-            maxLength: { value: 15, message: inputs.house.error.overlong }
+            maxLength: {
+              value: VALIDATION.HOUSE.MAX_LENGTH,
+              message: inputs.house.error.overlong
+            }
           }}
           render={({ field }) => (
             <Input
@@ -179,7 +200,10 @@ export default function Profile() {
           name='flat'
           control={control}
           rules={{
-            maxLength: { value: 15, message: inputs.flat.error.overlong }
+            maxLength: {
+              value: VALIDATION.FLAT.MAX_LENGTH,
+              message: inputs.flat.error.overlong
+            }
           }}
           render={({ field }) => (
             <Input

@@ -4,4 +4,4 @@ export const METADATA = {
   AUTHOR: 'XarTya',
   REPO: 'https://github.com/ghxartya/orap-form',
   BASE: '/'
-}
+} as const
