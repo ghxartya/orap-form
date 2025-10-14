@@ -8,6 +8,7 @@ export interface ListProps extends HTMLAttributes<HTMLUListElement> {
   setSelected: Dispatch<SetStateAction<Option | undefined>>
   options: SelectProps['options']
   isCountrySelect: boolean
+  searchQuery: string
+  setSearchQuery: Dispatch<SetStateAction<string>>
   handleOpen: (isOpen: boolean, isDropdownOpen: boolean) => void
-  searchError: string
 }

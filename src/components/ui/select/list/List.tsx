@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import { memo, useCallback, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
+import { useIntlMessages } from '@/hooks/useIntlMessages'
+
 import type { Option } from '@/ui/select/select.interface'
 import Span from '@/ui/select/span/Span'
 
@@ -16,9 +18,10 @@ const List = ({
   selected,
   handleOpen,
   setSelected,
-  searchError,
   options,
   className,
+  searchQuery,
+  setSearchQuery,
   isCountrySelect,
   itemsPerPage = 5,
   ...rest
@@ -60,16 +63,27 @@ const List = ({
     setLoadedCount(itemsPerPage)
   }, [options, itemsPerPage])
 
+  const messages = useIntlMessages()
+  const { country } = messages.ProfilePage.modals.DeliveryAddressModal.inputs
+
   return (
     <ul
       {...rest}
       id='dropdown-list'
       className={clsx(
         'bg-brand-background border-gray transition-max-height-visibility pointer-events-none invisible absolute top-full z-10 max-h-0 w-full overflow-y-auto rounded-b-sm border border-t-0 shadow duration-300 will-change-auto focus-visible:outline-none',
-        { '!pointer-events-auto !visible max-h-60': isOpen },
+        { '!pointer-events-auto !visible max-h-80': isOpen },
         className
       )}
     >
+      <input
+        type='text'
+        id='dropdown-search'
+        value={searchQuery}
+        onChange={e => setSearchQuery(e.target.value)}
+        placeholder={country.search.placeholder}
+        className='text-brand-blue font-arial leading-medium selection:text-brand-blue/75 border-gray bg-brand-background placeholder:text-brand-blue/75 w-full border-0 border-b-1 p-3 text-base font-normal focus-visible:outline-none'
+      />
       {loadedOptions.length > 0 ? (
         loadedOptions.map(option => {
           const optionKey = option.id
@@ -93,7 +107,7 @@ const List = ({
           <Span
             option={{
               id: '1',
-              value: searchError
+              value: country.search.error
             }}
             isCountrySelect={false}
           />
