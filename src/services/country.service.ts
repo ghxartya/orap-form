@@ -15,7 +15,10 @@ export const CountryService = {
       const formattedCountries: CountryOptions = countries
         .slice(0, amount)
         .map(country => ({
-          flags: country.flags,
+          flags: {
+            svg: country.flags.svg,
+            alt: country.flags.alt
+          },
           value: country.name.common,
           id: country.name.official
         }))

@@ -44,17 +44,22 @@ export default function Select({
 
   useOnClickOutside(dropdownRef as DropdownRef, () => handleOpen(false, false))
 
+  const [filteredOptions, setFilteredOptions] =
+    useState<SelectProps['options']>()
+
   useEffect(() => {
-    if (options && Array.isArray(options) && options.length > 0)
+    if (options && Array.isArray(options) && options.length > 0) {
       setSelected(options[0])
-    else setSelected(undefined)
+      setFilteredOptions(options)
+    } else setSelected(undefined)
   }, [options])
 
   useEffect(() => {
     if (selected) {
       if (!wasItDefaulted) {
-        const isGermany = (value: string) => value === 'Germany'
-        const defaultCountry = options.find(country => isGermany(country.value))
+        const isGermany = (option: Option) =>
+          option.value === 'Germany' && 'flags' in option
+        const defaultCountry = options.find(country => isGermany(country))
 
         if (defaultCountry) {
           setWasIsDefaulted(true)
@@ -65,7 +70,6 @@ export default function Select({
   }, [selected])
 
   const [searchQuery, setSearchQuery] = useState('')
-  const [filteredOptions, setFilteredOptions] = useState(options)
 
   const search = () =>
     setFilteredOptions(
@@ -118,15 +122,17 @@ export default function Select({
           className='text-brand-blue font-arial leading-medium selection:text-brand-blue/75 border-gray bg-brand-background placeholder:text-brand-blue/75 w-full border border-t-0 p-3 text-base font-normal shadow focus-visible:outline-none'
         />
       )}
-      <List
-        isOpen={isOpen}
-        selected={selected}
-        handleOpen={handleOpen}
-        setSelected={setSelected}
-        options={filteredOptions}
-        isCountrySelect={isCountrySelect}
-        searchError={country.search.error}
-      />
+      {filteredOptions && (
+        <List
+          isOpen={isOpen}
+          selected={selected}
+          handleOpen={handleOpen}
+          setSelected={setSelected}
+          options={filteredOptions}
+          isCountrySelect={isCountrySelect}
+          searchError={country.search.error}
+        />
+      )}
     </div>
   )
 }
